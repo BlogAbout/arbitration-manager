@@ -46,7 +46,14 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setUsername(signupRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
-        user.setPhone((signupRequest.getPhone()));
+        user.setEmail(signupRequest.getEmail());
+        user.setPhone(signupRequest.getPhone());
+        user.setFirstName(signupRequest.getFirstName());
+        user.setLastName(signupRequest.getLastName());
+        user.setMiddleName(signupRequest.getMiddleName());
+        user.setCompanyName(signupRequest.getCompanyName());
+        user.setNoMiddleName(signupRequest.isNoMiddleName());
+        user.setEntity(signupRequest.isEntity());
 
         Set<ERole> roles = new HashSet<>();
         roles.add(ERole.ROLE_USER);
@@ -105,9 +112,14 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByEmail(email);
     }
 
-    /*public boolean existsByPhone(String phone) {
-        return userInfoRepository.existsByPhone(phone);
-    }*/
+    /**
+     * <p>Проверяет, существует ли пользователь с указанным номером телефона.</p>
+     * @param phone телефон пользователя
+     * @return true, если пользователь с таким номером телефона существует, false - если не существует.
+     */
+    public boolean existsByPhone(String phone) {
+        return userRepository.existsByPhone(phone);
+    }
 
     /**
      * <p>Возвращает список объектов разбиты на страницы, а также дополнительную информацию.</p>

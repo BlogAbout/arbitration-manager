@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -39,6 +39,12 @@ public class AuthController {
         if (signupRequest.getCode() == 0) {
             if (userService.existsByUsername(signupRequest.getUsername()))
                 return new ResponseEntity<String>("Пользователь с таким именем пользователя уже существует.", HttpStatus.ACCEPTED);
+
+            if (userService.existsByEmail(signupRequest.getEmail()))
+                return new ResponseEntity<String>("Пользователь с таким e-mail уже существует.", HttpStatus.ACCEPTED);
+
+            if (userService.existsByPhone(signupRequest.getPhone()))
+                return new ResponseEntity<String>("Пользователь с таким номером телефона уже существует.", HttpStatus.ACCEPTED);
 
             User user = userService.create(signupRequest);
             return new ResponseEntity<User>(user, HttpStatus.OK);

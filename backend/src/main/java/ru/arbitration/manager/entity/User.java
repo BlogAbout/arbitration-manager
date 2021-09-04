@@ -29,6 +29,8 @@ public class User implements UserDetails {
     private String middleName;
     private String companyName;
     private String phone;
+    private boolean noMiddleName;
+    private boolean entity;
     private boolean enabled;
     private boolean locked;
     private int validationCode;
@@ -103,6 +105,22 @@ public class User implements UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean isNoMiddleName() {
+        return noMiddleName;
+    }
+
+    public void setNoMiddleName(boolean noMiddleName) {
+        this.noMiddleName = noMiddleName;
+    }
+
+    public boolean isEntity() {
+        return entity;
+    }
+
+    public void setEntity(boolean entity) {
+        this.entity = entity;
     }
 
     @Override
@@ -231,11 +249,20 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", noMiddleName=" + noMiddleName +
+                ", entity=" + entity +
                 ", enabled=" + enabled +
                 ", locked=" + locked +
+                ", validationCode=" + validationCode +
+                ", password='" + password + '\'' +
                 ", registration=" + registration +
                 ", role=" + role +
                 '}';

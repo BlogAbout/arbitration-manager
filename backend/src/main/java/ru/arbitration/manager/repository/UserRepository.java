@@ -14,11 +14,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
-    User findByEmail(String email);
-
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+    Boolean existsByPhone(String phone);
 
     @Transactional
     void deleteByUsername(@Param("username") String username);
