@@ -18,7 +18,7 @@ import ru.arbitration.manager.service.QuestionService;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/api/v1/question")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class QuestionController implements IDefaultParam {
     private final QuestionService questionService;

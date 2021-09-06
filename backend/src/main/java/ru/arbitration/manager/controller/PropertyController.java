@@ -21,7 +21,7 @@ import ru.arbitration.manager.service.PropertyService;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/property")
+@RequestMapping("/api/v1/property")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PropertyController implements IDefaultParam {
     private final PropertyService propertyService;

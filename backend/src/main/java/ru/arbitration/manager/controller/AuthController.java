@@ -77,7 +77,7 @@ public class AuthController {
             JwtResponse jwtResponse = new JwtResponse(jwt, user.getId(), user.getUsername(), user.getEmail(), roles);
             return new ResponseEntity<JwtResponse>(jwtResponse, HttpStatus.OK);
         } catch (AuthenticationException e) {
-            return new ResponseEntity<String>("Логин или пароль указаны неверно.", HttpStatus.OK);
+            return new ResponseEntity<String>("Логин или пароль указаны неверно.", HttpStatus.ACCEPTED);
         }
     }
 }
