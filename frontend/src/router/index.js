@@ -191,6 +191,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(route => !route.meta.nonRequiresAuth)) {
         if (localStorage.getItem('AuthState')) {
             next()
+            document.title = `${title ? title + ' | ' : ''}${brand}`
             return
         } else {
             next('/?message=not-auth')

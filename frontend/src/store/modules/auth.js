@@ -1,6 +1,5 @@
 import router from '@/router'
 
-const AUTH_KEY = 'AuthState'
 const AUTH_TYPE = 'AuthType'
 const TOKEN_KEY = 'AuthToken'
 const NAME_KEY = 'AuthName'
@@ -29,11 +28,6 @@ export default {
         },
     },
     mutations: {
-        setAuth(state, auth) {
-            localStorage.setItem(AUTH_KEY, auth)
-            console.log(auth)
-            this.isAuthenticated = auth
-        },
         setTypeAuth(state, type) {
             localStorage.removeItem(AUTH_TYPE)
             localStorage.setItem(AUTH_TYPE, type)
@@ -69,6 +63,7 @@ export default {
                 this._vm.$axios
                     .post('/auth/signin', data)
                     .then(response => {
+                        console.log(response)
                         commit('setAuth', true)
                         commit('setTypeAuth', response.data.type)
                         commit('setToken', response.data.token)
@@ -92,9 +87,15 @@ export default {
             return new Promise((resolve, reject) => {
                 const data = {
                     username: formData.username,
-                    phone: formData.phone,
                     password: formData.password,
-                    business: formData.business,
+                    email: formData.email,
+                    phone: formData.phone,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    middleName: formData.middleName,
+                    companyName: formData.companyName,
+                    noMiddleName: formData.noMiddleName,
+                    entity: formData.entity,
                     code: formData.code
                 }
 
@@ -115,6 +116,7 @@ export default {
         },
         userSignOut({ commit }) {
             commit('signOut')
+            commit('setAuth', false)
             delete this._vm.$axios.defaults.headers.common['Authorization']
             router.push('/')
         }

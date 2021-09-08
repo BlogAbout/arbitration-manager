@@ -8,14 +8,14 @@ public class JwtResponse {
     private Long id;
     private String username;
     private String email;
-    private Set<String> roles;
+    private Set<String> role;
 
-    public JwtResponse(String token, Long id, String username, String email, Set<String> roles) {
+    public JwtResponse(String token, Long id, String username, String email, Set<String> role) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
     }
 
     public String getToken() {
@@ -58,11 +58,11 @@ public class JwtResponse {
         this.email = email;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+    public Set<String> getRole() {
+        return role;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
+    public void setRole(Set<String> role) {
+        this.role = role;
     }
 }

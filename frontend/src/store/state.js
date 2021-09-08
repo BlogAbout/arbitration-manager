@@ -1,7 +1,7 @@
 const state = {
-    isAuthenticated: false,
     error: null,
-    loading: false
+    loading: false,
+    authenticated: localStorage.getItem('AuthState') === 'true'
 };
 
 export default state;

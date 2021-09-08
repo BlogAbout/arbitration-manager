@@ -5,7 +5,7 @@
                 <div class="content-block-inner">
                     <h1>Регистрация</h1>
                     <form name="form-registration" action="" method="post" @submit.prevent="submitHandler">
-                        <div class="row row-wrap row-space">
+                        <div v-if="!submitCode" class="row row-wrap row-space">
                             <div class="col">
                                 <div class="field field-checkbox">
                                     <label>
@@ -53,13 +53,14 @@
                                     >Поле не должно быть пустым</span>
                                 </div>
                             </div>
-                            <div class="col col-2" v-if="!noMiddleName">
+                            <div class="col col-2">
                                 <div class="field">
                                     <label for="middleName">Отчество</label>
                                     <input
                                         id="middleName"
                                         type="text"
                                         name="middleName"
+                                        :disabled="noMiddleName"
                                         v-model.trim="middleName"
                                     />
                                 </div>
@@ -141,7 +142,7 @@
                                         name="email"
                                         class="validate"
                                         v-model.trim="email"
-                                        :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email) || ($v.email.$dirty && !$v.email.maxLength)}"
+                                        :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
                                     />
                                     <span
                                         class="helper-text invalid"
@@ -151,10 +152,6 @@
                                         class="helper-text invalid"
                                         v-else-if="$v.email.$dirty && !$v.email.email"
                                     >Введите корректный E-mail</span>
-                                    <span
-                                        class="helper-text invalid"
-                                        v-else-if="$v.email.$dirty && !$v.email.maxLength"
-                                    >E-mail слишком длинный</span>
                                 </div>
                             </div>
                             <div class="col col-2">
@@ -196,6 +193,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-else class="row row-wrap row-space">
+                            <div class="col col-2">
+                                <div class="field">
+                                    <label for="code">На номер {{ phone }} отправлено СМС с кодом подтверждения</label>
+                                    <input
+                                        id="code"
+                                        type="number"
+                                        name="code"
+                                        class="validate"
+                                        v-model.trim="code"
+                                        :class="{invalid: ($v.code.$dirty && !$v.code.required)}"
+                                    />
+                                    <span
+                                        class="helper-text invalid"
+                                        v-if="$v.code.$dirty && !$v.code.required"
+                                    >Укажите код из СМС</span>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="field">
+                                    <input type="submit" value="Подтвердить" />
+                                </div>
+                            </div>
+                        </div>
                     </form>
                     <div v-if="message" class="errors">{{ message }}</div>
                 </div>
@@ -222,7 +243,7 @@ export default {
         lastName: '',
         middleName: '',
         companyName: '',
-        noMiddleName: '',
+        noMiddleName: false,
         entity: false,
         agree: false,
         code: '',
@@ -255,6 +276,11 @@ export default {
                 return !!this.entity
             })
         },
+        code: {
+            required: requiredIf(function() {
+                return this.submitCode !== ''
+            })
+        },
         agree: {
             checked: v => v
         }
@@ -272,6 +298,7 @@ export default {
                 username: this.username,
                 password: this.password,
                 email: this.email,
+                phone: this.phone,
                 firstName: this.firstName,
                 lastName: this.lastName,
                 middleName: this.middleName,
@@ -285,18 +312,14 @@ export default {
                 await this.$store.dispatch('userSignUp', formData)
                     .then((response) => {
                         if (response.status === 200) {
-                            this.submitCode = response.data.code
-                            this.code = response.data.code
+                            this.submitCode = response.data.validationCode
+                            this.code = response.data.validationCode
                         } else {
-                            /*if (messages[response.data.code])
-                                this.$message(messages[response.data.code])
-                            else
-                                this.$message(response.data.message)*/
+                            this.message = response.data
                         }
                     })
                     .catch((error) => {
-                        console.log(error)
-                        //this.$error(error.message)
+                        this.message = error.message
                     })
             } else {
                 const credentials = {
@@ -306,27 +329,25 @@ export default {
 
                 await this.$store.dispatch('userSignUp', formData)
                     .then((response) => {
-                        /*if (messages[response.data.code])
-                            this.$message(messages[response.data.code])
-                        else
-                            this.$message(response.data.message)*/
+                        if (response.status === 202)
+                            this.message = response.data
 
                         if (response.status === 200) {
                             this.$store.dispatch('userSignIn', credentials)
-                                .then(() => {
-                                    //this.$message(messages['welcome'])
-                                    //this.$emit('dialog', '')
-                                    this.$router.push('/profile')
+                                .then((response) => {
+                                    if (response.status === 202)
+                                        this.message = response.data
+
+                                    if (response.status === 200)
+                                        this.$router.push('/profile')
                                 })
                                 .catch((error) => {
-                                    console.log(error)
-                                    //this.$error(error.message)
+                                    this.message = error.message
                                 })
                         }
                     })
                     .catch((error) => {
-                        console.log(error)
-                        //this.$error(error.message)
+                        this.message = error.message
                     })
             }
         }

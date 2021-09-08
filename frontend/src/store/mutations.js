@@ -4,7 +4,11 @@ const mutations = {
     },
     setLoading(state, loading) {
         state.loading = loading
-    }
+    },
+    setAuth(state, auth) {
+        localStorage.setItem('AuthState', auth)
+        state.authenticated = auth
+    },
 };
 
 export default mutations;

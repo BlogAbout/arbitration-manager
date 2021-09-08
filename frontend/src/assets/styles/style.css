@@ -93,6 +93,7 @@ input[type="text"],
 input[type="password"],
 input[type="text"],
 input[type="email"],
+input[type="number"],
 input[type="tel"],
 textarea,
 select {
@@ -197,6 +198,12 @@ textarea:focus:-moz-placeholder {
 
 textarea:focus:-ms-input-placeholder {
     opacity: 0;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background-color: #dfdfdf;
 }
 
 input.invalid,
