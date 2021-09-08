@@ -34,6 +34,9 @@ public class User implements UserDetails {
     private boolean enabled;
     private boolean locked;
     private int validationCode;
+    private String inn;
+    private String ogrn;
+    private String kpp;
 
     @JsonIgnore
     private String password;
@@ -183,6 +186,30 @@ public class User implements UserDetails {
         this.validationCode = validationCode;
     }
 
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
+    public String getOgrn() {
+        return ogrn;
+    }
+
+    public void setOgrn(String ogrn) {
+        this.ogrn = ogrn;
+    }
+
+    public String getKpp() {
+        return kpp;
+    }
+
+    public void setKpp(String kpp) {
+        this.kpp = kpp;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRole();
@@ -262,6 +289,9 @@ public class User implements UserDetails {
                 ", enabled=" + enabled +
                 ", locked=" + locked +
                 ", validationCode=" + validationCode +
+                ", inn='" + inn + '\'' +
+                ", ogrn='" + ogrn + '\'' +
+                ", kpp='" + kpp + '\'' +
                 ", password='" + password + '\'' +
                 ", registration=" + registration +
                 ", role=" + role +

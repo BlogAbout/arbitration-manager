@@ -8,9 +8,12 @@ const AUTHORITIES_KEY = 'AuthAuthorities'
 
 export default {
     state: {
-
+        currentUser: null
     },
     getters: {
+        getCurrentUser(state) {
+            return state.currentUser
+        },
         getToken() {
             return localStorage.getItem(TOKEN_KEY)
         },
@@ -28,6 +31,9 @@ export default {
         },
     },
     mutations: {
+        setCurrentUser(state, user) {
+            state.currentUser = user
+        },
         setTypeAuth(state, type) {
             localStorage.removeItem(AUTH_TYPE)
             localStorage.setItem(AUTH_TYPE, type)
@@ -63,11 +69,10 @@ export default {
                 this._vm.$axios
                     .post('/auth/signin', data)
                     .then(response => {
-                        console.log(response)
                         commit('setAuth', true)
                         commit('setTypeAuth', response.data.type)
                         commit('setToken', response.data.token)
-                        commit('setName', response.data.name)
+                        commit('setName', response.data.firstName)
                         commit('setUsername', response.data.username)
                         commit('setAuthority', response.data.role)
                         commit('setError', null)
@@ -118,7 +123,61 @@ export default {
             commit('signOut')
             commit('setAuth', false)
             delete this._vm.$axios.defaults.headers.common['Authorization']
-            router.push('/')
+            router.push('/login')
+        },
+        userInfo({ commit }, login) {
+            return new Promise((resolve, reject) => {
+                commit('setLoading', true)
+                this._vm.$axios.get(`/users/${login}`)
+                    .then((response) => {
+                        commit('setCurrentUser', response.data)
+                        commit('setError', null)
+                        commit('setLoading', false)
+                        resolve(response)
+                    })
+                    .catch((error) => {
+                        commit('setCurrentUser', null)
+                        commit('setError', error.message)
+                        commit('setLoading', false)
+                        reject()
+                    })
+            })
+        },
+        userUpdate({ commit }, formData) {
+            return new Promise((resolve, reject) => {
+                const data = {
+                    username: formData.username,
+                    password: formData.password,
+                    email: formData.email,
+                    phone: formData.phone,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    middleName: formData.middleName,
+                    companyName: formData.companyName,
+                    noMiddleName: formData.noMiddleName,
+                    entity: formData.entity,
+                    inn: formData.inn,
+                    kpp: formData.kpp,
+                    ogrn: formData.ogrn
+                }
+
+                commit('setLoading', true)
+                this._vm.$axios
+                    .put('/users/' + formData.id, data)
+                    .then(response => {
+                        commit('setName', response.data.firstName)
+                        commit('setUsername', response.data.username)
+
+                        commit('setError', null)
+                        commit('setLoading', false)
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        commit('setError', error.message)
+                        commit('setLoading', false)
+                        reject(error)
+                    })
+            })
         }
     }
 }

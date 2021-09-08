@@ -14,6 +14,7 @@
                                         type="text"
                                         name="username"
                                         class="validate"
+                                        placeholder="Логин"
                                         v-model.trim="username"
                                         :class="{invalid: ($v.username.$dirty && !$v.username.required)}"
                                     />
@@ -31,6 +32,7 @@
                                         type="password"
                                         name="password"
                                         class="validate"
+                                        placeholder="Пароль"
                                         v-model.trim="password"
                                         :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
                                     />

@@ -13,6 +13,7 @@
                                         id="question"
                                         name="question"
                                         class="validate"
+                                        placeholder="Укажите текст вопроса"
                                         v-model.trim="question"
                                         :class="{invalid: ($v.question.$dirty && !$v.question.required)}"
                                     ></textarea>
@@ -29,6 +30,7 @@
                                         id="answer"
                                         name="answer"
                                         class="validate"
+                                        placeholder="Укажите текст ответа"
                                         v-model.trim="answer"
                                         :class="{invalid: ($v.answer.$dirty && !$v.answer.required)}"
                                     ></textarea>

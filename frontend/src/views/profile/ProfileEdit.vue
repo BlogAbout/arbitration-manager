@@ -3,9 +3,9 @@
         <section class="content-block">
             <div class="wrap">
                 <div class="content-block-inner">
-                    <h1>Регистрация</h1>
+                    <h1>Редактирование личных данных</h1>
                     <form name="form-registration" action="" method="post" @submit.prevent="submitHandler">
-                        <div v-if="!submitCode" class="row row-wrap row-space">
+                        <div class="row row-wrap row-space">
                             <div class="col">
                                 <div class="field field-checkbox">
                                     <label>
@@ -99,6 +99,60 @@
                                     >Поле не должно быть пустым</span>
                                 </div>
                             </div>
+                            <div class="col col-2" v-if="entity">
+                                <div class="field">
+                                    <label for="firstName">ИНН</label>
+                                    <input
+                                        id="inn"
+                                        type="text"
+                                        name="inn"
+                                        class="validate"
+                                        placeholder="ИНН"
+                                        v-model.trim="inn"
+                                        :class="{invalid: ($v.inn.$dirty && !$v.inn.required)}"
+                                    />
+                                    <span
+                                        class="helper-text invalid"
+                                        v-if="$v.inn.$dirty && !$v.inn.required"
+                                    >Поле не должно быть пустым</span>
+                                </div>
+                            </div>
+                            <div class="col col-2" v-if="entity">
+                                <div class="field">
+                                    <label for="firstName">КПП</label>
+                                    <input
+                                        id="kpp"
+                                        type="text"
+                                        name="kpp"
+                                        class="validate"
+                                        placeholder="КПП"
+                                        v-model.trim="kpp"
+                                        :class="{invalid: ($v.kpp.$dirty && !$v.kpp.required)}"
+                                    />
+                                    <span
+                                        class="helper-text invalid"
+                                        v-if="$v.kpp.$dirty && !$v.kpp.required"
+                                    >Поле не должно быть пустым</span>
+                                </div>
+                            </div>
+                            <div class="col col-2" v-if="entity">
+                                <div class="field">
+                                    <label for="firstName">ОГРН</label>
+                                    <input
+                                        id="ogrn"
+                                        type="text"
+                                        name="ogrn"
+                                        class="validate"
+                                        placeholder="ОГРН"
+                                        v-model.trim="ogrn"
+                                        :class="{invalid: ($v.ogrn.$dirty && !$v.ogrn.required)}"
+                                    />
+                                    <span
+                                        class="helper-text invalid"
+                                        v-if="$v.ogrn.$dirty && !$v.ogrn.required"
+                                    >Поле не должно быть пустым</span>
+                                </div>
+                            </div>
                             <div class="col col-2">
                                 <div class="field">
                                     <label for="username">Логин</label>
@@ -115,28 +169,6 @@
                                         class="helper-text invalid"
                                         v-if="$v.username.$dirty && !$v.username.required"
                                     >Поле не должно быть пустым</span>
-                                </div>
-                            </div>
-                            <div class="col col-2">
-                                <div class="field">
-                                    <label for="password">Пароль</label>
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        class="validate"
-                                        placeholder="Пароль"
-                                        v-model.trim="password"
-                                        :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
-                                    />
-                                    <span
-                                        class="helper-text invalid"
-                                        v-if="$v.password.$dirty && !$v.password.required"
-                                    >Поле не должно быть пустым</span>
-                                    <span
-                                        class="helper-text invalid"
-                                        v-else-if="$v.password.$dirty && !$v.password.minLength"
-                                    >Минимальная длина пароля 6 символов, текущая длина {{ password.length }} символов</span>
                                 </div>
                             </div>
                             <div class="col col-2">
@@ -182,56 +214,20 @@
                                     >Поле не должно быть пустым</span>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="field field-checkbox">
-                                    <label>
-                                        <input
-                                            id="agree"
-                                            type="checkbox"
-                                            name="agree"
-                                            v-model="agree"
-                                        />
-                                        <span>Принимаю условия политики конфиденциальности</span>
-                                    </label>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="row row-wrap row-space">
                             <div class="col col-2">
                                 <div class="field">
-                                    <input type="submit" value="Регистрация" />
+                                    <input type="submit" value="Сохранить изменения" />
                                 </div>
                             </div>
                         </div>
-                        <div v-else class="row row-wrap row-space">
-                            <div class="col col-2">
-                                <div class="field">
-                                    <label for="code">На номер {{ phone }} отправлено СМС с кодом подтверждения</label>
-                                    <input
-                                        id="code"
-                                        type="number"
-                                        name="code"
-                                        class="validate"
-                                        placeholder="Проверочный код из СМС"
-                                        v-model.trim="code"
-                                        :class="{invalid: ($v.code.$dirty && !$v.code.required)}"
-                                    />
-                                    <span
-                                        class="helper-text invalid"
-                                        v-if="$v.code.$dirty && !$v.code.required"
-                                    >Укажите код из СМС</span>
-                                </div>
-                            </div>
-                            <div class="col col-2">
-                                <div class="field">
-                                    <input type="submit" value="Подтвердить" />
-                                </div>
-                            </div>
-                        </div>
+                        <input type="hidden" name="id" id="userId" v-model="id" />
                     </form>
                     <div v-if="message" class="errors">{{ message }}</div>
                 </div>
                 <div class="links">
-                    <router-link to="/login">Войти</router-link>
-                    <router-link to="/forgot">Восстановить пароль</router-link>
+                    <router-link to="/profile">Вернуться</router-link>
                 </div>
             </div>
         </section>
@@ -239,13 +235,33 @@
 </template>
 
 <script>
-import { email, required, requiredIf, minLength } from 'vuelidate/dist/validators.min'
+import { email, required, requiredIf } from 'vuelidate/dist/validators.min'
 
 export default {
-    name: 'Registration',
+    name: 'ProfileEdit',
+    mounted() {
+        this.currentLogin = this.$store.getters.getUsername
+        this.$store.dispatch("userInfo", this.currentLogin)
+            .then((response) => {
+                this.id = response.data.id
+                this.username = response.data.username
+                this.email = response.data.email
+                this.phone = response.data.phone
+                this.firstName = response.data.firstName
+                this.lastName = response.data.lastName
+                this.middleName = response.data.middleName
+                this.companyName = response.data.companyName
+                this.noMiddleName = response.data.noMiddleName
+                this.entity = response.data.entity
+                this.inn = response.data.inn
+                this.kpp = response.data.kpp
+                this.ogrn = response.data.ogrn
+            })
+    },
     data: () => ({
+        id: 0,
+        currentLogin: '',
         username: '',
-        password: '',
         email: '',
         phone: '',
         firstName: '',
@@ -254,18 +270,14 @@ export default {
         companyName: '',
         noMiddleName: false,
         entity: false,
-        agree: false,
-        code: '',
-        submitCode: '',
+        inn: '',
+        kpp: '',
+        ogrn: '',
         message: ''
     }),
     validations: {
         username: {
             required
-        },
-        password: {
-            required,
-            minLength: minLength(6)
         },
         email: {
             email,
@@ -285,13 +297,20 @@ export default {
                 return !!this.entity
             })
         },
-        code: {
+        inn: {
             required: requiredIf(function() {
-                return this.submitCode !== ''
+                return !!this.entity
             })
         },
-        agree: {
-            checked: v => v
+        kpp: {
+            required: requiredIf(function() {
+                return !!this.entity
+            })
+        },
+        ogrn: {
+            required: requiredIf(function() {
+                return !!this.entity
+            })
         }
     },
     methods: {
@@ -304,8 +323,8 @@ export default {
             }
 
             const formData = {
+                id: this.id,
                 username: this.username,
-                password: this.password,
                 email: this.email,
                 phone: this.phone,
                 firstName: this.firstName,
@@ -314,51 +333,22 @@ export default {
                 companyName: this.companyName,
                 noMiddleName: this.noMiddleName,
                 entity: this.entity,
-                code: this.code
+                inn: this.inn,
+                kpp: this.kpp,
+                ogrn: this.ogrn
             }
 
-            if (!this.submitCode) {
-                await this.$store.dispatch('userSignUp', formData)
-                    .then((response) => {
-                        if (response.status === 200) {
-                            this.submitCode = response.data.validationCode
-                            this.code = response.data.validationCode
-                        } else {
-                            this.message = response.data
-                        }
-                    })
-                    .catch((error) => {
-                        this.message = error.message
-                    })
-            } else {
-                const credentials = {
-                    username: this.username,
-                    password: this.password
-                }
+            await this.$store.dispatch('userUpdate', formData)
+                .then((response) => {
+                    if (response.status === 202)
+                        this.message = response.data
 
-                await this.$store.dispatch('userSignUp', formData)
-                    .then((response) => {
-                        if (response.status === 202)
-                            this.message = response.data
-
-                        if (response.status === 200) {
-                            this.$store.dispatch('userSignIn', credentials)
-                                .then((response) => {
-                                    if (response.status === 202)
-                                        this.message = response.data
-
-                                    if (response.status === 200)
-                                        this.$router.push('/profile')
-                                })
-                                .catch((error) => {
-                                    this.message = error.message
-                                })
-                        }
-                    })
-                    .catch((error) => {
-                        this.message = error.message
-                    })
-            }
+                    if (response.status === 200)
+                        this.$router.push('/profile')
+                })
+                .catch((error) => {
+                    this.message = error.message
+                })
         }
     }
 }

@@ -23,6 +23,7 @@
                     type="tel"
                     name="phone"
                     class="validate"
+                    placeholder="Ваш номер телефона"
                     v-model.trim="phone"
                     :class="{invalid: ($v.phone.$dirty && !$v.phone.required)}"
                 />

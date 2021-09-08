@@ -34,12 +34,29 @@ const routes = [
         component: () => import('../views/profile/Registration.vue')
     },
     {
+        path: '/forgot',
+        name: 'Forgot',
+        meta: {
+            title: 'Восстановление пароля',
+            nonRequiresAuth: true
+        },
+        component: () => import('../views/profile/Forgot.vue')
+    },
+    {
         path: '/profile',
         name: 'Profile',
         meta: {
             title: 'Личный кабинет'
         },
         component: () => import('../views/profile/Profile.vue')
+    },
+    {
+        path: '/profile/edit',
+        name: 'ProfileEdit',
+        meta: {
+            title: 'Редактирование личных данных'
+        },
+        component: () => import('../views/profile/ProfileEdit.vue')
     },
     {
         path: '/bankruptcy-entities',

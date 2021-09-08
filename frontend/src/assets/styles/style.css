@@ -463,7 +463,7 @@ p {
     transition: all 0.3s ease;
 }
 
-.menu-panel .main-menu li.active a::after,
+.menu-panel .main-menu li.exact-active a::after,
 .menu-panel .main-menu a:hover::after {
     height: 3px;
 }
@@ -495,7 +495,7 @@ p {
     color: #fff;
 }
 
-.footer .footer-menu li.active a,
+.footer .footer-menu li.exact-active a,
 .footer .footer-menu a:hover {
     border-bottom: 1px dashed #fff;
 }
@@ -868,15 +868,40 @@ form .col.col-2 {
     color: #ff0000;
 }
 
-.user-information {
-    margin-bottom: 20px;
+.user-information + .user-information {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dotted #303440;
 }
 
-.user-information p span {
+.user-information .user-information-list {
+    column-count: 2;
+}
+
+.user-information .param {
+    line-height: 40px;
+}
+
+.user-information .param .param-label {
     font-size: 14px;
     font-style: italic;
     color: #8a8a8a;
     margin-right: 10px;
+    display: inline-block;
+    width: 130px;
+}
+
+.user-information h3 span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-information h3 .link-small {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 10px;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 .red {

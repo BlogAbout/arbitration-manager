@@ -15,6 +15,7 @@ import ru.arbitration.manager.pojo.SignupRequest;
 import ru.arbitration.manager.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -72,8 +73,20 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public User update(User userFromDb, User user) {
+    public User update(User userFromDb, User user) throws IOException {
+        userFromDb.setUsername(user.getUsername());
+        userFromDb.setEmail(user.getEmail());
 
+        userFromDb.setFirstName(user.getFirstName());
+        userFromDb.setLastName(user.getLastName());
+        userFromDb.setMiddleName(user.getMiddleName());
+        userFromDb.setCompanyName(user.getCompanyName());
+        userFromDb.setPhone(user.getPhone());
+        userFromDb.setNoMiddleName(user.isNoMiddleName());
+        userFromDb.setEntity(user.isEntity());
+        userFromDb.setInn(user.getInn());
+        userFromDb.setKpp(user.getKpp());
+        userFromDb.setOgrn(user.getOgrn());
 
         return userRepository.save(userFromDb);
     }
