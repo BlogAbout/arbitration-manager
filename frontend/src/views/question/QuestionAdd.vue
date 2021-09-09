@@ -3,7 +3,7 @@
         <section class="content-block">
             <div class="wrap">
                 <div class="content-block-inner">
-                    <h1>Добавить новый вопрос</h1>
+                    <h1 v-html="currentId === 0 ? 'Добавить новый вопрос' : 'Обновить вопрос'" />
                     <form name="form-login" action="" method="post" @submit.prevent="submitHandler">
                         <div class="row row-wrap row-space">
                             <div class="col col-2">
@@ -42,13 +42,16 @@
                             </div>
                             <div class="col col-2">
                                 <div class="field">
-                                    <input type="submit" value="Добавить" />
+                                    <input type="submit" :value="currentId === 0 ? 'Добавить' : 'Обновить'" />
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="id" :value="currentId" />
                     </form>
                     <div v-if="message" class="errors">{{ message }}</div>
+                </div>
+                <div class="links">
+                    <router-link to="/question">Вернуться</router-link>
                 </div>
             </div>
         </section>
@@ -70,9 +73,21 @@ export default {
         question: { required },
         answer: { required }
     },
+    mounted() {
+        this.currentId = this.$route.params.id || 0
+        if (this.currentId !== 0)
+            this.$store.dispatch('infoQuestion', this.currentId)
+                .then((response) => {
+                    this.question = response.data.question
+                    this.answer = response.data.answer
+                })
+                .catch(() => {
+                    this.$router.push('/question')
+                })
+    },
     methods: {
         async submitHandler() {
-            this.data = ''
+            this.message = ''
 
             if (this.$v.$invalid) {
                 this.$v.$touch()
@@ -87,21 +102,13 @@ export default {
 
             await this.$store.dispatch('addQuestion', formData)
                 .then((response) => {
-                    if (response.status === 202)
-                        this.message = response.data
-
-                    if (response.status === 200)
+                    if (response.status === 200 || response.status === 201)
                         this.$router.push('/question')
+                    else
+                        this.message = response.data
                 })
                 .catch((error) => {
-                    if (error.response)
-                        console.log('error.response', error.response)
-                    else if (error.request)
-                        console.log('error.request', error.request)
-                    else
-                        console.log('error.message', error.message)
-
-                    console.log(error.message)
+                    this.message = error.message
                 })
         }
     }

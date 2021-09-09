@@ -91,15 +91,23 @@ export default {
         },
         addProperty({ commit }, formData) {
             return new Promise((resolve, reject) => {
+                const formDataInfo = new FormData()
                 const data = {
                     name: formData.name,
                     description: formData.description,
-                    cost: formData.cost
+                    cost: formData.cost,
+                    image: formData.image
                 }
+
+                if (formData.file != null) {
+                    formDataInfo.append('model', JSON.stringify(data))
+                    formDataInfo.append('file', formData.file)
+                }
+
                 commit('setLoading', true)
                 if (formData.id === 0) {
                     this._vm.$axios
-                        .post('/property', data)
+                        .post('/property', (formData.file != null ? formDataInfo : data))
                         .then(response => {
                             commit('setError', null)
                             commit('setLoading', false)
@@ -112,7 +120,7 @@ export default {
                         })
                 } else {
                     this._vm.$axios
-                        .put('/property/' + formData.id, data)
+                        .put('/property/' + formData.id, (formData.file != null ? formDataInfo : data))
                         .then(response => {
                             commit('setError', null)
                             commit('setLoading', false)

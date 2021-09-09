@@ -24,7 +24,7 @@ public class PropertyService {
     }
 
     public Property create(Property property, MultipartFile file, User user) throws IOException {
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             String fileName = uploaderService.save(file, "property", user.getId());
             property.setImage(fileName);
         }
@@ -38,9 +38,11 @@ public class PropertyService {
         propertyFromDb.setImage(property.getImage());
         propertyFromDb.setDescription(property.getDescription());
 
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             String fileName = uploaderService.save(file, "property", user.getId());
             propertyFromDb.setImage(fileName);
+
+            // Важно - Доделать! Удаление старой картинки
         }
 
         return propertyRepository.save(propertyFromDb);

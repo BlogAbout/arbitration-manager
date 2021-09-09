@@ -25,8 +25,7 @@ export default {
         },
         getAuthorities() {
             let roles = []
-            if (this.getToken())
-                JSON.parse(localStorage.getItem(AUTHORITIES_KEY)).forEach(authority => { roles.push(authority) })
+            JSON.parse(localStorage.getItem(AUTHORITIES_KEY)).forEach(authority => { roles.push(authority) })
             return roles
         },
     },

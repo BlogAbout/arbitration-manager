@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 node_modules/
 frontend/node_modules
+frontend/public/uploads/
 
 ### STS ###
 .apt_generated

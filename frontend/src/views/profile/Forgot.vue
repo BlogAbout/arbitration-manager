@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         async submitHandler() {
-            this.data = ''
+            this.message = ''
 
             if (this.$v.$invalid) {
                 this.$v.$touch()

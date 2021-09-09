@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -49,16 +50,37 @@ public class PropertyController implements IDefaultParam {
 
     @PostMapping
     public ResponseEntity<?> create(
-            @RequestParam(value = "model") String jsonData,
-            @RequestParam(value = "file") MultipartFile file,
+            @RequestBody Property property,
             @AuthenticationPrincipal User user
     ) {
         if (!user.getRole().contains(ERole.ROLE_ADMIN))
             return new ResponseEntity<String>("Ошибка доступа.", HttpStatus.ACCEPTED);
 
         try {
+            Property updated = propertyService.create(property, null, user);
+            return new ResponseEntity<Property>(updated, HttpStatus.CREATED);
+        } catch (IOException e) {
+            return new ResponseEntity<String>("Ошибка создания записи.", HttpStatus.ACCEPTED);
+        }
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<?> create(
+            @RequestParam(value = "model") String jsonData,
+            @RequestParam(value = "file") MultipartFile file,
+            @AuthenticationPrincipal User user
+    ) {
+        System.out.println(jsonData);
+        System.out.println(file);
+        if (!user.getRole().contains(ERole.ROLE_ADMIN))
+            return new ResponseEntity<String>("Ошибка доступа.", HttpStatus.ACCEPTED);
+
+        try {
             Property property = objectMapper.readValue(jsonData, Property.class);
-            Property updated  = propertyService.create(property, file, user);
+            Property updated = propertyService.create(property, file, user);
             return new ResponseEntity<Property>(updated, HttpStatus.CREATED);
         } catch (JsonProcessingException e) {
             return new ResponseEntity<String>("Ошибка получения данных.", HttpStatus.ACCEPTED);
@@ -68,6 +90,27 @@ public class PropertyController implements IDefaultParam {
     }
 
     @PutMapping("{id}")
+    public ResponseEntity<?> update(
+            @PathVariable("id") Property propertyFromDb,
+            @RequestBody Property property,
+            @AuthenticationPrincipal User user
+    ) {
+        if (!user.getRole().contains(ERole.ROLE_ADMIN))
+            return new ResponseEntity<String>("Ошибка доступа.", HttpStatus.ACCEPTED);
+
+        try {
+            Property updated = propertyService.update(propertyFromDb, null, property, user);
+            return new ResponseEntity<Property>(updated, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<String>("Ошибка обновления записи.", HttpStatus.ACCEPTED);
+        }
+    }
+
+    @RequestMapping(
+            value = "{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
     public ResponseEntity<?> update(
             @PathVariable("id") Property propertyFromDb,
             @RequestParam(value = "model") String jsonData,

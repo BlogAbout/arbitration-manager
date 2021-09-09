@@ -5,12 +5,16 @@ import router from './router'
 import store from './store'
 import AXIOS from './http-common'
 
+import costFormatFilter from "@/utils/filters/cost.format.filter"
+
 import './assets/styles/style.css'
 
 Vue.prototype.$axios = AXIOS
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
+
+Vue.filter('costFormat', costFormatFilter)
 
 Vue.directive('phone', {
     bind(el) {
