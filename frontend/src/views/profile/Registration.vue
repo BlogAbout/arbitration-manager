@@ -62,10 +62,15 @@
                                         id="middleName"
                                         type="text"
                                         name="middleName"
+                                        class="validate"
                                         placeholder="Отчество"
                                         :disabled="noMiddleName"
                                         v-model.trim="middleName"
                                     />
+                                    <span
+                                        class="helper-text invalid"
+                                        v-if="$v.middleName.$dirty && !$v.middleName.required"
+                                    >Поле не должно быть пустым</span>
                                 </div>
                             </div>
                             <div class="col col-2">
@@ -279,6 +284,11 @@ export default {
         },
         lastName: {
             required
+        },
+        middleName: {
+            required: requiredIf(function() {
+                return !this.noMiddleName
+            })
         },
         companyName: {
             required: requiredIf(function() {

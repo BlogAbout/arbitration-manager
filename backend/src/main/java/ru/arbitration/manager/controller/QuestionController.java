@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.arbitration.manager.dto.ERole;
@@ -42,6 +43,7 @@ public class QuestionController implements IDefaultParam {
         return new ResponseEntity<Question>(question, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> create(
             @RequestBody Question question,
@@ -58,6 +60,7 @@ public class QuestionController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<?> update(
             @PathVariable("id") Question questionFromDb,
@@ -75,6 +78,7 @@ public class QuestionController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Question question) {
         questionService.delete(question);

@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +49,7 @@ public class PropertyController implements IDefaultParam {
         return new ResponseEntity<Property>(property, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> create(
             @RequestBody Property property,
@@ -64,6 +66,7 @@ public class PropertyController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(
             method = RequestMethod.POST,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -89,6 +92,7 @@ public class PropertyController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<?> update(
             @PathVariable("id") Property propertyFromDb,
@@ -106,6 +110,7 @@ public class PropertyController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(
             value = "{id}",
             method = RequestMethod.PUT,
@@ -128,6 +133,7 @@ public class PropertyController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Property property) {
         propertyService.delete(property);

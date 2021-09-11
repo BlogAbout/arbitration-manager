@@ -6,12 +6,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import ru.arbitration.manager.dto.ERole;
 import ru.arbitration.manager.dto.PageListDto;
-import ru.arbitration.manager.entity.Question;
 import ru.arbitration.manager.entity.User;
 import ru.arbitration.manager.pojo.IDefaultParam;
 import ru.arbitration.manager.service.UserService;
@@ -29,6 +29,7 @@ public class UserController implements IDefaultParam {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<PageListDto> list(
             @PageableDefault(size = ITEM_PER_PAGE, sort = { "id" }, direction = Sort.Direction.ASC) Pageable pageable
@@ -38,6 +39,7 @@ public class UserController implements IDefaultParam {
         return new ResponseEntity<PageListDto>(list, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("{username}")
     public ResponseEntity<User> info(@PathVariable("username") String username, @AuthenticationPrincipal User user) {
         try {
@@ -52,6 +54,7 @@ public class UserController implements IDefaultParam {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<?> update(
             @PathVariable("id") User userFromDb,
