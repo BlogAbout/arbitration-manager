@@ -5,12 +5,22 @@
                 <h2 class="text-center">Свидетельства Евгении Марченко</h2>
                 <div class="row">
                     <div
-                        v-for="(item, index) in diplomas"
-                        :key="'diplomas-item-' + index"
+                        v-for="(src, index) in diplomas"
+                        :key="index"
                         class="col col-4"
                     >
-                        <img :src="'/images/' + item" alt="Свидетельства Евгении Марченко" />
+                        <a href="#" @click.prevent="showImg(index)">
+                            <img :src="src" alt="Свидетельства Евгении Марченко">
+                        </a>
                     </div>
+                    <vue-easy-lightbox
+                        escDisabled
+                        moveDisabled
+                        :visible="visible"
+                        :imgs="diplomas"
+                        :index="index"
+                        @hide="handleHide"
+                    ></vue-easy-lightbox>
                 </div>
             </div>
         </div>
@@ -18,10 +28,28 @@
 </template>
 
 <script>
+import VueEasyLightbox from 'vue-easy-lightbox'
+
 export default {
     name: 'DiplomasList',
+    components: {
+        VueEasyLightbox
+    },
     data: () => ({
-        diplomas: ['sertif-001.jpeg', 'sertif-002.jpeg', 'sertif-003.jpeg', 'sertif-004.jpeg',]
-    })
+        visible: false,
+        index: 0,
+        diplomas: [
+            '/images/sertif-001.jpeg', '/images/sertif-002.jpeg', '/images/sertif-003.jpeg', '/images/sertif-004.jpeg'
+        ]
+    }),
+    methods: {
+        showImg(index) {
+            this.index = index
+            this.visible = true
+        },
+        handleHide() {
+            this.visible = false
+        }
+    }
 }
 </script>
