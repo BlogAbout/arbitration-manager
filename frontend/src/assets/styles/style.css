@@ -233,6 +233,7 @@ a.btn {
     -webkit-transition: .3s;
     -o-transition: .3s;
     transition: .3s;
+    text-align: center;
 }
 
 .btn.btn-right {
@@ -422,6 +423,25 @@ p {
 
 .menu-panel {
     background-color: #303440;
+    position: relative;
+}
+
+.menu-panel .mobile-toggle-button {
+    display: none;
+    align-items: center;
+}
+
+.menu-panel .mobile-toggle-button .email a {
+    margin-left: 10px;
+    color: #fff;
+}
+
+.menu-panel .mobile-toggle-button .toggle-menu-link {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: #fff;
+    font-size: 35px;
+    margin-right: 10px;
 }
 
 .menu-panel .main-menu {
@@ -1049,4 +1069,8 @@ h3 .link-small {
 
 .city-list .item {
     margin-bottom: 10px;
+}
+
+#nprogress .bar {
+    background: #303440;
 }

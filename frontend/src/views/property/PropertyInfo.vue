@@ -6,7 +6,7 @@
                     <div class="row row-stretch row-wrap">
                         <div class="col col-2">
                             <div class="property-image">
-                                <img src="../../assets/images/noimage.jpg" :alt="property.name" />
+                                <img :src="property.image ? '/uploads/' + property.image : '/images/noimage.jpg'" :alt="property.name" />
                             </div>
                         </div>
                         <div class="col col-2">

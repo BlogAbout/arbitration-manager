@@ -1,0 +1,327 @@
+@media (max-width: 1200px) {
+    .wrap {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .menu-panel .main-menu {
+        padding: 0 10px;
+    }
+
+    .slogan-block .slogan-text {
+        padding: 80px 30px 80px 20px;
+    }
+
+    .individual-block .text-container {
+        padding: 40px 40px 40px 10px;
+    }
+
+    .entity-block .text-container {
+        padding: 40px 10px 40px 40px;
+    }
+
+    .information-block {
+        padding: 80px 10px;
+    }
+
+    .footer {
+        padding: 40px 10px;
+    }
+
+    .content-block {
+        padding: 20px 10px;
+    }
+
+    .property-information {
+        padding: 0 10px 0 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .menu-panel .mobile-toggle-button {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+    }
+
+    .menu-panel .main-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 47px;
+        background-color: #303440;
+        z-index: 9;
+    }
+
+    .menu-panel .main-menu.show {
+        display: block;
+    }
+
+    .slogan-block .slogan-image {
+        padding-right: 0;
+    }
+
+    .list-property .item {
+        width: 32%;
+        margin-right: 2%;
+    }
+
+    .list-property .item:nth-child(4n) {
+        margin-right: 2%;
+    }
+
+    .list-property .item:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .city-list {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 900px) {
+    h1, h2 {
+        font-size: 22px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .slogan-block .slogan-text {
+        padding: 30px;
+    }
+
+    .slogan-block .slogan-text .main-head {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .diplomas-block {
+        padding: 40px 0;
+    }
+
+    .individual-block .row,
+    .entity-block .row {
+        flex-wrap: wrap;
+    }
+
+    .individual-block .col-2,
+    .entity-block .col-2 {
+        width: 100%;
+    }
+
+    .individual-block .col-2:last-child,
+    .entity-block .col-2:first-child {
+        display: none;
+    }
+
+    .individual-block .text-container,
+    .entity-block .text-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .individual-block .col-4,
+    .entity-block .col-4 {
+        width: 50%;
+    }
+
+    .individual-block .col:nth-child(1) .item,
+    .individual-block .col:nth-child(4) .item,
+    .entity-block .col:nth-child(1) .item,
+    .entity-block .col:nth-child(4) .item {
+        background-color: #303440;
+    }
+
+    .individual-block .col:nth-child(2) .item,
+    .individual-block .col:nth-child(3) .item,
+    .entity-block .col:nth-child(2) .item,
+    .entity-block .col:nth-child(3) .item {
+        background-color: #000;
+    }
+
+    .information-block {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slogan-block .slogan-text .main-head {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    h1, h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .slogan-block .slogan-text h3 {
+        margin-bottom: 10px;
+    }
+
+    .slogan-block .slogan-text {
+        padding: 20px;
+    }
+
+    .row {
+        flex-wrap: wrap;
+    }
+
+    .col.col-3,
+    .col.col-4 {
+        width: 50%;
+    }
+
+    .diplomas-block .col.col-4 {
+        margin-bottom: 20px;
+    }
+
+    .feedback-block .wrap,
+    .feedback-block .feedback-container {
+        position: relative;
+        left: auto;
+        right: auto;
+        transform: none;
+        top: auto;
+        width: 100%;
+        border-bottom: 1px solid #fff;
+    }
+
+    .footer .row {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer .copyright {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .list-items {
+        margin-top: 20px;
+    }
+
+    .list-items .row {
+        width: 100%;
+    }
+
+    .list-property .item {
+        width: 49%;
+        margin-right: 2%;
+        margin-bottom: 20px;
+    }
+
+    .list-property .item:nth-child(3n) {
+        margin-right: 2%;
+    }
+
+    .list-property .item:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    .property-information .cost {
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    .property-information .buttons .btn {
+        margin: 0 10px 10px 0;
+    }
+
+    .property-description {
+        margin-top: 20px;
+    }
+
+    .city-list {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .list-property .item {
+        width: 100%;
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+
+    .property-info .col.col-2 {
+        width: 100%;
+    }
+
+    .property-information {
+        padding: 20px 0 0;
+    }
+
+    .user-information .user-information-list {
+        column-count: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-panel .logo {
+        width: 220px;
+    }
+
+    .top-panel .contacts .email {
+        display: none;
+    }
+
+    .top-panel .contacts .phone {
+        font-size: 18px;
+    }
+
+    .col.col-2,
+    .col.col-3,
+    .col.col-4,
+    form .col.col-2 {
+        width: 100%;
+    }
+
+    .diplomas-block .col.col-4 {
+        width: 50%;
+    }
+
+    .individual-block .col:nth-child(1) .item,
+    .individual-block .col:nth-child(3) .item,
+    .entity-block .col:nth-child(1) .item,
+    .entity-block .col:nth-child(3) .item {
+        background-color: #303440;
+    }
+
+    .individual-block .col:nth-child(2) .item,
+    .individual-block .col:nth-child(4) .item,
+    .entity-block .col:nth-child(2) .item,
+    .entity-block .col:nth-child(4) .item {
+        background-color: #000;
+    }
+
+    .list-property .col.col-2 {
+        width: 50%;
+    }
+
+    .btn.btn-right {
+        width: 100%;
+        float: none;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .top-panel .logo {
+        width: 100%;
+    }
+
+    .top-panel .contacts,
+    .menu-panel .main-menu {
+        width: 100%;
+        text-align: center;
+    }
+
+    .city-list {
+        column-count: 1;
+    }
+}

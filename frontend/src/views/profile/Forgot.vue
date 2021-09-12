@@ -10,7 +10,7 @@
                     <div v-if="message" class="errors">{{ message }}</div>
                 </div>
                 <div class="links">
-                    <router-link to="/forgot">Войти</router-link>
+                    <router-link to="/login">Войти</router-link>
                     <router-link to="/registration">Регистрация</router-link>
                 </div>
             </div>

@@ -9,6 +9,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
 import costFormatFilter from "@/utils/filters/cost.format.filter"
 
 import './assets/styles/style.css'
+import './assets/styles/mobile.css'
 
 Vue.prototype.$axios = AXIOS
 Vue.config.productionTip = false

@@ -30,7 +30,7 @@
             </div>
             <div class="menu-panel">
                 <div class="wrap">
-                    <ul class="main-menu row">
+                    <ul class="main-menu row" :class="{ show: mobileMenuShow }">
                         <router-link
                             v-for="(item, index) in menuHeader"
                             :key="'header-link-' + index"
@@ -39,10 +39,18 @@
                             v-slot="{ href, route, navigate, isActive, isExactActive }"
                         >
                             <li :class="[isActive && 'active', isExactActive && 'exact-active']">
-                                <a :href="href" @click="navigate">{{ item.title }}</a>
+                                <a :href="href" @click="navigate" v-on:click.capture="mobileMenuShow = false">{{ item.title }}</a>
                             </li>
                         </router-link>
                     </ul>
+                    <div class="mobile-toggle-button">
+                        <div class="email">
+                            <a href="mailto:info@arbitration-manager.ru">info@arbitration-manager.ru</a>
+                        </div>
+                        <a class="toggle-menu-link" href="#" @click.prevent="mobileMenuShow = !mobileMenuShow">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -114,6 +122,7 @@ export default {
         })
     },
     data: () => ({
+        mobileMenuShow: false,
         menuHeader: [
             {title: 'Арбитражный управляющий', url: '/'},
             {title: 'Банкротство юридических лиц', url: '/bankruptcy-entities'},
