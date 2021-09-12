@@ -1037,3 +1037,11 @@ h3 .link-small {
 .property-description {
     margin-top: 40px;
 }
+
+.city-list {
+    column-count: 4;
+}
+
+.city-list .item {
+    margin-bottom: 10px;
+}

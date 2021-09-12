@@ -157,10 +157,19 @@ const routes = [
         path: '/city',
         name: 'City',
         meta: {
-            title: 'Контакты',
+            title: 'Работаем с городами',
             nonRequiresAuth: true
         },
-        component: () => import('../views/City.vue')
+        component: () => import('../views/city/City.vue')
+    },
+    {
+        path: '/city/:id-info',
+        name: 'CityInfo',
+        meta: {
+            title: 'Работаем с городами',
+            nonRequiresAuth: true
+        },
+        component: () => import('../views/city/CityInfo.vue')
     },
     {
         path: '/policy',
