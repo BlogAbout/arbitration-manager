@@ -12,7 +12,7 @@
                         >Добавить новое</router-link>
                     </h1>
                     <div class="list-items list-property">
-                        <div class="row row-stretch row-wrap row-space">
+                        <div class="row row-stretch row-wrap">
                             <div
                                 v-for="(item, index) in property"
                                 :key="'property-item-' + index"

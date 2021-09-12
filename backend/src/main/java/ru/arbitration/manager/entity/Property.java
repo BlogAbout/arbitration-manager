@@ -1,6 +1,9 @@
 package ru.arbitration.manager.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "property")
@@ -12,6 +15,10 @@ public class Property {
     private String name;
     private String cost;
     private String image;
+
+    @CreationTimestamp
+    @Column(name = "created", nullable = false, updatable = false)
+    private Date created;
 
     @Lob
     private String description;
@@ -50,5 +57,13 @@ public class Property {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

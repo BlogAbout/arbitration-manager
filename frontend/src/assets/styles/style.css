@@ -960,6 +960,11 @@ h3 .link-small {
     border: 1px solid #303440;
     position: relative;
     margin-bottom: 40px;
+    margin-right: 1.33333%;
+}
+
+.list-property .item:nth-child(4n) {
+    margin-right: 0;
 }
 
 .list-property .item .property-actions {
